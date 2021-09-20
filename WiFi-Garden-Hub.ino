@@ -22,28 +22,33 @@ void setup() {
   Serial.println(ip);
 
   server.on("/", HTTP_GET, serveRoot);
-  server.on("/", HTTP_POST, handleRoot);
-  server.on("/sensor", HTTP_POST, getSensorData);
+  server.on("/calibrate", HTTP_GET, handleCalibrateGet);
+  server.on("/calibrate", HTTP_POST, handleCalibratePost);
+  server.on("/sensor", HTTP_POST, handleSensorPost);
 
   server.begin();
 }
 
 void loop() {
-  
-}
-
-void serveRoot() {
-  
+  server.handleClient();
 }
 
 void handleRoot() {
   
 }
 
-void getSensorData() {
-  if(!server.hasArg("data") || !server.hasArg("id") || server.hasArg("data")==NULL || server.hasArg("id")==NULL) {
+void handleCalibrateGet() {
+  
+}
+
+void handleCalibratePost() {
+  
+}
+
+void handleSensorPost() {
+  if(!server.hasArg("data") || !server.hasArg("id") || server.arg("data")==NULL || server.arg("id")==NULL) {
     server.send(400, "text/plain", "400: Invalid Request");
   } else { // success
-    
+    server.send(200, "text/plain", "data_sent_ok");
   }
 }
